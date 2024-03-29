@@ -1,0 +1,58 @@
+from datetime  import datetime;
+import random;
+
+#Colors Definitions
+yellow = "\U0001F7E8"
+green = "\U0001F7E9"
+white = u"\u2B1C"
+
+def DateDifference():
+    StartDate = '2024/3/26'
+    TodaysDate = datetime.today().strftime('%Y/%m/%d')
+
+    d1 = datetime.strptime(StartDate, "%Y/%m/%d")
+    d2 = datetime.strptime(TodaysDate, "%Y/%m/%d")
+
+    DateDiff = d2 - d1
+
+    return DateDiff.days
+
+def CalcWordleCount():
+    WordleCount = 1011 + DateDifference()  #on 26/03/24 wordle number was: 1011
+    WordleCount_str = str(WordleCount)
+    WordleCount_str = WordleCount_str[:1] +',' + WordleCount_str[1:]
+
+    return WordleCount_str
+    
+def PrintBoard(attempts):
+    intattempts = int(attempts)
+    if (intattempts > 5):
+        attempts = 'X'
+
+    print("Wordle " + CalcWordleCount() + " " + attempts +"/6")
+    print ("") #Line break
+
+    for x in range(intattempts): #row
+        pos = str(x)
+        if (x == intattempts-1): #All greens on the last one
+            print (green *5)
+        else:
+            line = CreateRandLine()
+
+def CreateRandLine():
+    colors = [white, green, yellow]
+    
+    Line = []
+    for x in range(5):
+        Line.append(random.choice(colors))
+
+    strLine = "".join(Line)
+    
+    print (strLine)
+
+def main():
+    print("Enter how many attempts:")
+    attempts = input()
+    PrintBoard(attempts)
+
+main()
